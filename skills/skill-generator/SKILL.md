@@ -1,20 +1,18 @@
 ---
-name: skill-writer
-description: Transforms user requirements into production-ready, framework-aligned skills using clarity gating, type classification, conditional technique selection, and token optimization. Use when user says "create a skill", "write a skill", or "I need to automate [workflow]".
-type: interactive
-optimization: reliability
-mode: industrial
-version: 2.2.0
+name: skill-generator
+description: Base generator that transforms requirements into framework-aligned skills using clarity gating, type classification, and cognitive techniques. For automatic quality refinement, use alpha-skill instead.
 ---
 
-# Skill Writer v2.2
+# Skill Generator v0.0.1
 
-> **Type:** Interactive Meta-Skill
+> **Type:** Interactive Meta-Skill (Base Generator)
 > **Last Updated:** 2026-02-15
 
 ## Overview
 
-The Skill Writer is a **Framework-Integrated + Cognitively-Engineered Meta-Skill** that generates skills aligned with the 4-type framework (Reference, Command, Workflow, Interactive) while guaranteeing advanced prompting techniques through conditional logic.
+The Skill Generator is a **Framework-Integrated + Cognitively-Engineered Base Generator** that creates skills aligned with the 4-type framework (Reference, Command, Workflow, Interactive) while applying advanced prompting techniques through conditional logic.
+
+**Note:** This is the base generator. For production-ready skills with automatic quality refinement, use `/alpha-skill` which orchestrates the full 4-agent RL loop.
 
 ## Capabilities
 
@@ -42,7 +40,7 @@ Use this skill when you need to:
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│               SKILL WRITER v2.2 PIPELINE                         │
+│               SKILL GENERATOR v2.2 PIPELINE                      │
 ├──────────────────────────────────────────────────────────────────┤
 │                                                                  │
 │  User Request → PHASE 0 → PHASE 0.5 → Stages 1-4 → PHASE 5 → PHASE 6
@@ -124,6 +122,4 @@ Scans the generated output against the *Technique Manifest*.
 
 ## Changelog
 
-*   **v2.2.0:** Framework Integration (Type Classification) + Complexity Calibration.
-*   **v2.1.0:** Cognitive Architecture Enforcement.
-*   **v2.0.0:** Performance Engineering.
+*   **v0.0.1:** Initial Alpha Release. Framework Integration (Type Classification) + Cognitive Architecture Enforcement.

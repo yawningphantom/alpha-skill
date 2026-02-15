@@ -1,0 +1,9 @@
+# This package is for npm namespace protection only
+# Exclude everything except essential files
+
+*
+!package.json
+!index.js
+!postinstall.js
+!README.md
+!LICENSE

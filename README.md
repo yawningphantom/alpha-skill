@@ -2,74 +2,117 @@
 
 > **Engineering-grade framework for AI automation agents.**
 
-> **Version:** 2.2.0
-> **Build:** Framework Integration + Cognitive Enforcement
+> **Version:** 0.0.1 | **Build:** Framework Integration + Cognitive Enforcement
 
 **Alpha Skill** is a structured framework for defining, generating, and validating executable skills. It treats natural language prompts as software artifacts, enforcing strict architectural patterns for security, determinism, and reliability.
 
-## Core Tools
-
-This repository provides two primary utilities for managing the skill lifecycle:
-
-### 1. Skill Writer (`skill-writer`)
-**Purpose:** Generates compliant skill definitions from natural language requirements.
-
-**Features:**
-*   **Static Analysis:** Selects the correct template (Command, Workflow, Reference, Interactive).
-*   **Security Injection:** Automatically wraps user input in XML tags to prevent prompt injection.
-*   **Reasoning Enforcement:** injects mandatory cognitive steps (e.g., Chain of Density) based on task type.
+### ⚡ Quick Start
 
 ```bash
-/skill-writer "Create a skill that audits AWS security groups for open ports"
+# Clone → Use (30 seconds)
+git clone https://github.com/your-org/skills.git && cd skills
+claude
+/alpha-skill Create a skill for code reviews
 ```
 
-### 2. Skill Evaluator (`skill-evaluator`)
-**Purpose:** Validates skill quality against the specification.
+### Alpha Skill (`alpha-skill`) 🚀
+**Purpose:** Production-ready skill generator with automatic quality refinement using Reinforcement Learning loop.
 
 **Features:**
-*   **7-Point Inspection:** Checks structure, content, mode, tools, anti-patterns, performance, and cognitive compliance.
-*   **Deterministic Scoring:** Returns a 0-100 score based on objective criteria.
-*   **Linting:** Identifies missing sections or weak constraints.
+*   **4-Agent Architecture:** Orchestrates Generator → Adversary → Evaluator → Optimizer loop
+*   **Automatic Refinement:** Iterates until score ≥90 and all tests pass
+*   **Empirical Testing:** Generates and runs adversarial test cases
+*   **Production Hardened:** Survives injection attacks, edge cases, and boundary conditions
 
 ```bash
-/skill-evaluator skills/my-skill/SKILL.md
+/alpha-skill "Create a skill that audits AWS security groups for open ports"
+# → Generates v1 → Tests (7/10 fail) → Refines v2 → Tests (13/13 pass) ✅
 ```
+
+## Installation
+
+### 🚀 For Claude Code
+
+```bash
+# 1. Clone this repository
+git clone https://github.com/your-org/skills.git
+cd skills
+
+# 2. Start Claude Code
+claude
+
+# 3. Use immediately
+/alpha-skill Create a skill for code reviews
+```
+
+**Want it available in all projects?**
+
+```bash
+# One command - installs all skills (alpha, generator, evaluator, adversary)
+cp -r skills/skill-* ~/.claude/skills/
+
+# Now use in any project
+cd ~/any-project && claude
+/alpha-skill Create a deployment skill
+```
+
+---
+
+### 💻 For Cursor Editor
+
+#### Option 1: Use as Project Context (Best for single project)
+
+```bash
+# 1. Navigate to your project
+cd your-project
+
+# 2. Copy alpha-skill to your project
+cp -r /path/to/skills/skills/alpha-skill .cursorrules/skills/
+
+# 3. Cursor automatically loads it
+# Ask Cursor: "Use alpha-skill to create a review skill"
+```
+
+#### Option 2: Add to Global Cursor Rules (Best for all projects)
+
+```bash
+# 1. Read the alpha-skill content
+cat skills/alpha-skill/SKILL.md
+
+# 2. Copy it to your global Cursor rules
+# Mac/Linux:
+mkdir -p ~/.cursor/rules
+cp skills/alpha-skill/SKILL.md ~/.cursor/rules/alpha-skill.md
+
+# Windows:
+mkdir %USERPROFILE%\.cursor\rules
+copy skills\alpha-skill\SKILL.md %USERPROFILE%\.cursor\rules\alpha-skill.md
+
+# 3. In Cursor, reference it:
+# "@alpha-skill create a skill for API testing"
+```
+
+---
 
 ## Quick Start
 
-### Generate a Skill
-To create a new skill, use the writer. It will handle the boilerplate and architectural decisions.
+### Try It Immediately (No Installation)
 
 ```bash
-/skill-writer "Create a skill that helps me review pull requests"
-```
+# Clone and test
+git clone https://github.com/your-org/skills.git && cd skills
+claude
 
-### Validate a Skill
-Ensure your skill adheres to the framework standards before committing.
+# Generate your first production-ready skill (automatic RL loop)
+/alpha-skill "Create a skill that reviews pull requests for security issues"
+# → Generates v1 → Tests → Refines → Tests → Production-ready ✅
 
+### Common Usage Patterns
+
+**Generate production-ready skill (Recommended):**
 ```bash
-/skill-evaluator skills/my-skill/SKILL.md
-```
-
-### Loop Mode (Writer + Evaluator)
-Run the generation and evaluation in a closed loop until the skill passes all checks.
-
-```bash
-/skill-writer "Create legal contract analyzer" --auto-refine
-```
-
-## Architecture
-
-### Directory Structure
-```
-skills/
-├── .claude-plugin/     # Plugin configuration
-├── skills/             # Source code for skills
-│   └── skill-name/
-│       ├── SKILL.md    # Entry point
-│       └── resources/  # Python scripts/JSON templates
-├── templates/          # Standardized architectural patterns
-└── docs/               # Technical specifications
+/alpha-skill "Create a skill for [task]" --target 90
+# Automatic refinement until score ≥90 and all tests pass
 ```
 
 ### Skill Types
@@ -87,10 +130,15 @@ The framework defines four immutable patterns:
 
 ## Documentation
 
-*   [Framework Specification](docs/FRAMEWORK.md)
-*   [Tooling Guide](docs/TOOLS-GUIDE.md)
-*   [Optimization Techniques](docs/OPTIMIZATION-AND-TOOLS.md)
-*   [Contribution Guidelines](docs/CONTRIBUTING.md)
+### Core Guides
+*   [Framework Specification](docs/FRAMEWORK.md) - Architecture and patterns
+*   [Tooling Guide](docs/TOOLS-GUIDE.md) - CLI and automation
+*   [Optimization Techniques](docs/OPTIMIZATION-AND-TOOLS.md) - Performance tuning
+
+### Distribution & Sharing
+*   **[Skill Distribution Guide](docs/SKILL-DISTRIBUTION-GUIDE.md)** - Complete guide to sharing skills (project/team/enterprise)
+*   **[Distribution Quick Reference](docs/DISTRIBUTION-QUICK-REF.md)** - Fast lookup for distribution commands
+*   [Contribution Guidelines](docs/CONTRIBUTING.md) - How to contribute
 
 ## License
 

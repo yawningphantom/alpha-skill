@@ -1,19 +1,9 @@
 ---
 name: skill-evaluator
 description: Evaluates generated skills against quality standards using 7-layer analysis (Structure, Content, Mode Alignment, Tools, Anti-Lazy, Performance, Cognitive Architecture).
-type: Interactive
-optimization: Precision
-tools:
-  - validate_yaml_format
-  - check_structural_integrity
-  - calculate_constraint_density
-  - detect_anti_patterns
-  - analyze_token_efficiency
-  - audit_cognitive_techniques
-version: 2.2.0
 ---
 
-# Skill Evaluator v2.2
+# Skill Evaluator v0.0.1
 
 > **Type:** Interactive Skill (Quality Assessment)
 > **Optimization:** Precision (Clear quality definitions)
@@ -107,6 +97,4 @@ overall_score = (
 ---
 
 ## Changelog
-*   **v2.2.0:** Aligned with Framework 2.2 standards.
-*   **v2.1.0:** Added Layer 7 (Cognitive Architecture).
-*   **v2.0.0:** Added Layer 6 (Performance).
+*   **v0.0.1:** Initial Alpha Release. Aligned with Framework standards. Added 7-Layer Evaluation.

@@ -1,18 +1,9 @@
 ---
 name: skill-adversary
 description: Generates adversarial test cases to expose logic flaws, security vulnerabilities, and edge-case failures. Acts as the "Red Team" for generated skills.
-type: Interactive
-optimization: Reliability
-tools:
-  - generate_fuzz_inputs
-  - inject_malicious_payloads
-  - simulate_api_failures
-  - execute_stress_test
-  - analyze_security_patches
-version: 2.2.0
 ---
 
-# Skill Adversary v2.2
+# Skill Adversary v0.0.1
 
 > **Type:** Interactive Skill (Red Teaming)
 > **Optimization:** Reliability (Maximize failure discovery)
@@ -85,5 +76,4 @@ Returns a **Vulnerability Report**:
 ---
 
 ## Changelog
-*   **v2.2.0:** Integrated with Alpha Skill Framework. Added standardized attack vectors for simple engineering linguistic.
-*   **v1.0.0:** Initial Red Team capabilities.
+*   **v0.0.1:** Initial Alpha Release. Integrated standardized attack vectors.

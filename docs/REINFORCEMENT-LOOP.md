@@ -2,7 +2,7 @@
 
 **Automatic Quality Improvement Through Iterative Refinement**
 
-**Version 1.4.0** - Enhanced with 4-Agent Architecture
+**Version 0.0.1** - Enhanced with 4-Agent Architecture
 
 ---
 
@@ -16,7 +16,7 @@ The Reinforcement Learning (RL) Loop is a self-improving system where skills are
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│           REINFORCEMENT LEARNING LOOP v1.4.0                 │
+│           REINFORCEMENT LEARNING LOOP v0.0.1                 │
 │           4-Agent Architecture (AlphaGo-Style)               │
 ├──────────────────────────────────────────────────────────────┤
 │                                                              │

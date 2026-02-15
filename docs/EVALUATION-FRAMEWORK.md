@@ -299,7 +299,7 @@ def calculate_overall_score(dimension_scores):
 skill_evaluation_report:
   skill_name: "mortgage-calculator"
   evaluated_at: "2026-02-14T10:30:00Z"
-  evaluator_version: "1.0.0"
+  evaluator_version: "0.0.1"
 
   overall_score: 85
   overall_band: "Good"

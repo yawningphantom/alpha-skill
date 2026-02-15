@@ -181,41 +181,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new skills.
 
 ## Recently Added
 
-### Version 1.4.0 - 2026-02-14
-- ⚔️ **NEW:** 4-Agent Architecture - Enhanced RL loop with Adversary agent for empirical validation
-- 🧪 **NEW:** skill-adversary meta-skill - Generates adversarial test cases to expose weaknesses
-- 📊 **NEW:** Test Suite Management - Regression tracking across iterations
-- 🎯 **ENHANCED:** RL loop now validates with real tests (not just subjective scores)
-- ✅ **FEATURE:** Empirical pass/fail results replace subjective "looks good" evaluation
-- 🔒 **FEATURE:** Attack simulation (injection, boundary, ambiguity, hallucination, etc.)
-- 📈 **FEATURE:** Regression prevention - previous tests must remain passing
-- 📖 **UPDATED:** REINFORCEMENT-LOOP.md - 4-agent architecture with Adversary
-- ⚡ **UPDATED:** RL-LOOP-QUICKSTART.md - Test-driven refinement workflow
-
-### Version 1.3.0 - 2026-02-14
-- 🔄 **NEW:** Reinforcement Learning Loop - Automatic skill refinement until production-ready
-- 📖 **NEW:** REINFORCEMENT-LOOP.md - Complete RL loop architecture and algorithms
-- ⚡ **NEW:** RL-LOOP-QUICKSTART.md - Quick start guide for auto-refine
-- 🎯 **FEATURE:** `--auto-refine` flag for skill-writer (3-5 iterations to score ≥90)
-- 🔍 **FEATURE:** Iteration history tracking and progress visualization
-
-### Version 1.2.0 - 2026-02-14
-- 🎯 **NEW:** 3-mode system (Industrial/Muse/Socratic) - Simplifies optimization
-- 📋 **NEW:** MODES-GUIDE.md - Mode selection and characteristics
-- 🔍 **NEW:** skill-evaluator meta-skill - Quality assessment with 5-layer analysis
-- 📊 **NEW:** EVALUATION-FRAMEWORK.md - Complete evaluation methodology
-
-### Version 1.1.0 - 2026-02-14
-- 🧠 **NEW:** skill-writer meta-skill - Create optimized skills automatically
-- 📊 **NEW:** Multi-dimensional optimization framework (Reliability/Precision/Learning/Style)
-- 🔧 **NEW:** Strategic tool integration guide (4 tool criteria)
-- 📖 **NEW:** OPTIMIZATION-AND-TOOLS.md - Advanced techniques
-- 🛠️ **NEW:** TOOLS-GUIDE.md - Comprehensive tool design patterns
-
-### Version 1.0.0 - 2026-02-14
-- 🎉 Initial repository setup
-- 📚 Framework documentation completed
-- 📝 Templates created for all skill types
+### Version 0.0.1 - 2026-02-15
+- 🎉 Initial Alpha Release.
 
 ---
 

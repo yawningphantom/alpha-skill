@@ -1,0 +1,32 @@
+{
+  "name": "alpha-skill",
+  "version": "0.0.1",
+  "description": "Engineering-grade framework for AI automation agents. Auto-installs Claude Code skills on npm install.",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node postinstall.js"
+  },
+  "keywords": [
+    "ai",
+    "skills",
+    "automation",
+    "prompt-engineering",
+    "llm",
+    "claude",
+    "claude-code",
+    "agents"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yawningphantom/alpha-skill.git"
+  },
+  "author": "Siddharth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yawningphantom/alpha-skill/issues"
+  },
+  "homepage": "https://github.com/yawningphantom/alpha-skill#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
