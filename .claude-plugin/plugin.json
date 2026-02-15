@@ -1,0 +1,23 @@
+{
+  "name": "personal-skills",
+  "version": "1.0.0",
+  "description": "Personal automation skills for workflow optimization",
+  "author": {
+    "name": "Siddharth",
+    "github": "yawningphantom"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yawningphantom/skills"
+  },
+  "skills": [
+    "skills/*/SKILL.md"
+  ],
+  "keywords": [
+    "automation",
+    "workflow",
+    "productivity",
+    "development",
+    "skills"
+  ]
+}
