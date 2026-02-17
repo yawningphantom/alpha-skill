@@ -357,15 +357,15 @@ Style        ████████░░░░░░░░░░░░ 40%
 ### Method 1: Explicit Mode Selection
 
 ```bash
-/alpha-skill--mode industrial "Create a skill for security auditing"
-/alpha-skill--mode muse "Create a skill for writing technical blog posts"
-/alpha-skill--mode socratic "Create a skill for teaching debugging"
+/alpha-skill --mode industrial "Create a skill for security auditing"
+/alpha-skill --mode muse "Create a skill for writing technical blog posts"
+/alpha-skill --mode socratic "Create a skill for teaching debugging"
 ```
 
 ### Method 2: Triage-Based (Recommended)
 
 ```bash
-/alpha-skill"Create a skill for mortgage calculations"
+/alpha-skill "Create a skill for mortgage calculations"
 
 # skill-generator asks:
 > What matters most: Precision, Inspiration, or Understanding?
@@ -381,7 +381,7 @@ User: "Precision - if it's wrong, people lose money"
 ### Method 3: Hybrid (Advanced)
 
 ```bash
-/alpha-skill--mode industrial --tune "Style +20%" "Create API docs with personality"
+/alpha-skill --mode industrial --tune "Style +20%" "Create API docs with personality"
 
 # Adjusts Industrial preset:
 # Reliability 90%, Precision 80%, Learning 20%, Style 30% (was 10%)
@@ -395,7 +395,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Bad
-/alpha-skill--mode muse "Generate authentication logic"
+/alpha-skill --mode muse "Generate authentication logic"
 # Result: Creative but potentially insecure code
 ```
 
@@ -403,7 +403,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Good
-/alpha-skill--mode industrial "Generate authentication logic"
+/alpha-skill --mode industrial "Generate authentication logic"
 # Result: Strict, validated, security-focused code
 ```
 
@@ -413,7 +413,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Bad
-/alpha-skill--mode industrial "Generate product name ideas"
+/alpha-skill --mode industrial "Generate product name ideas"
 # Result: Generic, risk-averse names lacking creativity
 ```
 
@@ -421,7 +421,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Good
-/alpha-skill--mode muse "Generate product name ideas"
+/alpha-skill --mode muse "Generate product name ideas"
 # Result: Unexpected, evocative names with personality
 ```
 
@@ -431,7 +431,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Bad (user is time-pressed)
-/alpha-skill--mode socratic "Fix this critical production bug"
+/alpha-skill --mode socratic "Fix this critical production bug"
 # Result: Asks teaching questions while system is down
 ```
 
@@ -439,7 +439,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Good
-/alpha-skill--mode industrial "Fix production bug and document root cause"
+/alpha-skill --mode industrial "Fix production bug and document root cause"
 # Result: Fast fix + explanatory documentation for learning later
 ```
 
@@ -453,17 +453,17 @@ Use different modes for different phases:
 
 **Phase 1: Brainstorm (Muse Mode)**
 ```bash
-/alpha-skill--mode muse "Generate API design concepts"
+/alpha-skill --mode muse "Generate API design concepts"
 ```
 
 **Phase 2: Validate (Socratic Mode)**
 ```bash
-/alpha-skill--mode socratic "Evaluate API design tradeoffs"
+/alpha-skill --mode socratic "Evaluate API design tradeoffs"
 ```
 
 **Phase 3: Implement (Industrial Mode)**
 ```bash
-/alpha-skill--mode industrial "Generate production API code"
+/alpha-skill --mode industrial "Generate production API code"
 ```
 
 ### Blended Modes

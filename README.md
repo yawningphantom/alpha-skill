@@ -1,8 +1,10 @@
 # Alpha Skill
 
-> **Engineering-grade framework for AI automation agents.**
+[![npm version](https://img.shields.io/npm/v/alpha-skill.svg)](https://www.npmjs.com/package/alpha-skill)
+[![npm downloads](https://img.shields.io/npm/dm/alpha-skill.svg)](https://www.npmjs.com/package/alpha-skill)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Version:** 0.0.1 | **Build:** Framework Integration + Cognitive Enforcement
+> **Engineering-grade framework for AI automation agents.**
 
 **Alpha Skill** is a structured framework for defining, generating, and validating executable skills. It treats natural language prompts as software artifacts, enforcing strict architectural patterns for security, determinism, and reliability.
 
@@ -127,6 +129,21 @@ The framework defines four immutable patterns:
 ### Distribution & Sharing
 *   **[Skill Distribution Guide](docs/SKILL-DISTRIBUTION-GUIDE.md)** - Complete guide to sharing skills (project/team/enterprise)
 *   [Contribution Guidelines](docs/CONTRIBUTING.md) - How to contribute
+
+## Publishing to npm
+
+```bash
+# 1. Bump version (patch/minor/major)
+npm version patch   # 0.0.1 → 0.0.2
+npm version minor   # 0.0.2 → 0.1.0
+npm version major   # 0.1.0 → 1.0.0
+
+# 2. Publish
+npm publish
+
+# 3. Push the version tag to git
+git push && git push --tags
+```
 
 ## License
 

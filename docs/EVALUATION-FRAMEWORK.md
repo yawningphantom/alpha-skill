@@ -525,7 +525,7 @@ Execute: `validate_yaml(skill_file_path)`
 
 ```bash
 # After generating a skill
-/alpha-skill"Create mortgage calculator"
+/alpha-skill "Create mortgage calculator"
 # → Generates skills/mortgage-calculator/SKILL.md
 
 /skill-evaluator skills/mortgage-calculator/SKILL.md

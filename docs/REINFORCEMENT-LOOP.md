@@ -306,7 +306,7 @@ refinement_instructions:
 
 **Usage:**
 ```bash
-/alpha-skill"Create mortgage calculator" --auto-refine --target 90
+/alpha-skill "Create mortgage calculator" --auto-refine --target 90
 
 # Process:
 # Iteration 1: Generate → Score 75 → Refine
@@ -338,7 +338,7 @@ auto_refine_config:
 
 **Usage:**
 ```bash
-/alpha-skill"Create API docs skill" --semi-auto
+/alpha-skill "Create API docs skill" --semi-auto
 
 # Process:
 # Iteration 1: Generate → Score 75
@@ -369,7 +369,7 @@ auto_refine_config:
 **Usage:**
 ```bash
 # Step 1: Generate
-/alpha-skill"Create deployment skill"
+/alpha-skill "Create deployment skill"
 # → Generates skills/deployment/SKILL.md
 
 # Step 2: Evaluate
@@ -377,7 +377,7 @@ auto_refine_config:
 # → Score: 75, Issues: [...]
 
 # Step 3: Refine manually
-/alpha-skill--improve skills/deployment/SKILL.md \
+/alpha-skill --improve skills/deployment/SKILL.md \
   --issues "Fix Example 2 placeholder; Add anti-lazy constraints"
 
 # Step 4: Re-evaluate
@@ -385,7 +385,7 @@ auto_refine_config:
 # → Score: 88
 
 # Step 5: Refine again
-/alpha-skill--improve skills/deployment/SKILL.md \
+/alpha-skill --improve skills/deployment/SKILL.md \
   --issues "Add verification section"
 
 # Step 6: Final evaluation
@@ -811,7 +811,7 @@ def map_failure_to_layer(failure: dict) -> str:
 ### User Input
 
 ```bash
-/alpha-skill"Create a skill for SQL query translation" \
+/alpha-skill "Create a skill for SQL query translation" \
   --auto-refine --target 90 --max-iterations 5
 ```
 
@@ -1190,14 +1190,14 @@ reinforcement_loop_config:
 
 ```bash
 # High-stakes: Stricter requirements
-/alpha-skill"Create financial calculator" \
+/alpha-skill "Create financial calculator" \
   --auto-refine \
   --target 95 \
   --max-iterations 10 \
   --min-improvement 2.0
 
 # Quick iteration: Looser requirements
-/alpha-skill"Create brainstorming skill" \
+/alpha-skill "Create brainstorming skill" \
   --auto-refine \
   --target 80 \
   --max-iterations 3
@@ -1381,16 +1381,16 @@ refinement_history:
 
 ```bash
 # Mode 1: Generate with auto-refine
-/alpha-skill"Create X" --auto-refine
+/alpha-skill "Create X" --auto-refine
 
 # Mode 2: Improve existing skill
-/alpha-skill--improve skills/X/SKILL.md --issues "[feedback]"
+/alpha-skill --improve skills/X/SKILL.md --issues "[feedback]"
 
 # Mode 3: Single iteration refinement
-/alpha-skill--refine-once skills/X/SKILL.md
+/alpha-skill --refine-once skills/X/SKILL.md
 
 # Mode 4: Continue previous loop
-/alpha-skill--resume-loop skills/X/SKILL.md
+/alpha-skill --resume-loop skills/X/SKILL.md
 ```
 
 ### skill-generator Enhancement
@@ -1439,26 +1439,26 @@ refinement_history:
 
 ```python
 # ✅ Good: Achievable targets
-/alpha-skill"Create blog writer" --target 90
+/alpha-skill "Create blog writer" --target 90
 
 # ❌ Too high: Wastes iterations
-/alpha-skill"Create blog writer" --target 98  # Rarely achievable
+/alpha-skill "Create blog writer" --target 98  # Rarely achievable
 
 # ❌ Too low: Accepts mediocrity
-/alpha-skill"Create security audit" --target 70  # Too low for critical skill
+/alpha-skill "Create security audit" --target 70  # Too low for critical skill
 ```
 
 ### 2. Use Appropriate Max Iterations
 
 ```python
 # ✅ Standard: 3-5 iterations
-/alpha-skill"..." --max-iterations 5
+/alpha-skill "..." --max-iterations 5
 
 # ⚠️  Complex skills: May need more
-/alpha-skill"Create multi-step workflow" --max-iterations 8
+/alpha-skill "Create multi-step workflow" --max-iterations 8
 
 # ❌ Too many: Diminishing returns
-/alpha-skill"..." --max-iterations 20  # Likely to plateau
+/alpha-skill "..." --max-iterations 20  # Likely to plateau
 ```
 
 ### 3. Monitor Improvement Rate
