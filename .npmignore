@@ -1,9 +1,8 @@
-# This package is for npm namespace protection only
-# Exclude everything except essential files
-
-*
-!package.json
-!index.js
-!postinstall.js
-!README.md
-!LICENSE
+# Exclude dev/docs files, include skills for installation
+.git
+.github
+docs/
+templates/
+.claude-plugin/
+SKILL_WRITER_ANALYSIS.md
+.gitignore

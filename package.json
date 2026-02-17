@@ -1,8 +1,11 @@
 {
   "name": "alpha-skill",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Engineering-grade framework for AI automation agents. Auto-installs Claude Code skills on npm install.",
   "main": "index.js",
+  "bin": {
+    "alpha-skill": "postinstall.js"
+  },
   "scripts": {
     "postinstall": "node postinstall.js"
   },
