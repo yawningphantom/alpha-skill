@@ -9,6 +9,10 @@ const REPO_URL = 'https://github.com/yawningphantom/alpha-skill.git';
 const CLONE_DIR = path.join(os.tmpdir(), 'alpha-skill-temp');
 const CLAUDE_INSTALL_DIR = path.join(os.homedir(), '.claude', 'skills');
 const CURSOR_INSTALL_DIR = path.join(os.homedir(), '.cursor', 'rules');
+const OPENCODE_INSTALL_DIR = path.join(
+  process.env.XDG_CONFIG_HOME || path.join(os.homedir(), '.opencode'),
+  'commands'
+);
 
 console.log('\n╔══════════════════════════════════════════════════════════════╗');
 console.log('║                   ALPHA SKILL SETUP                          ║');
@@ -44,6 +48,14 @@ try {
     console.log(`   Created: ${CURSOR_INSTALL_DIR}`);
   } else {
     console.log(`   Using: ${CURSOR_INSTALL_DIR}`);
+  }
+
+  // OpenCode directory
+  if (!fs.existsSync(OPENCODE_INSTALL_DIR)) {
+    fs.mkdirSync(OPENCODE_INSTALL_DIR, { recursive: true });
+    console.log(`   Created: ${OPENCODE_INSTALL_DIR}`);
+  } else {
+    console.log(`   Using: ${OPENCODE_INSTALL_DIR}`);
   }
 
   console.log('   ✅ Directories ready\n');
@@ -92,8 +104,25 @@ try {
 
   console.log(`   ✅ ${cursorInstalledCount} skills installed to Cursor\n`);
 
-  // Step 5: Cleanup temp directory
-  console.log('🧹 Step 5: Cleaning up...');
+  // Step 5: Install to OpenCode (skills as .md command files)
+  console.log('🖥️  Step 5: Installing to OpenCode...');
+
+  let opencodeInstalledCount = 0;
+  for (const skillInfo of installedSkills) {
+    const skillSource = path.join(CLONE_DIR, 'skills', skillInfo.dir, 'SKILL.md');
+    const skillDest = path.join(OPENCODE_INSTALL_DIR, `${skillInfo.dir}.md`);
+
+    if (fs.existsSync(skillSource)) {
+      fs.copyFileSync(skillSource, skillDest);
+      console.log(`   ✓ /${skillInfo.dir} command installed`);
+      opencodeInstalledCount++;
+    }
+  }
+
+  console.log(`   ✅ ${opencodeInstalledCount} skills installed to OpenCode\n`);
+
+  // Step 6: Cleanup temp directory
+  console.log('🧹 Step 6: Cleaning up...');
   fs.rmSync(CLONE_DIR, { recursive: true, force: true });
   console.log('   ✅ Done\n');
 
@@ -135,7 +164,10 @@ try {
   console.log('  Cursor Editor:');
   console.log('     @alpha-skill create a skill for code reviews');
   console.log('');
-  console.log('  Both editors use the same 4-Agent RL loop:');
+  console.log('  OpenCode:');
+  console.log('     /alpha-skill "Create a skill for code reviews"');
+  console.log('');
+  console.log('  All editors use the same 4-Agent RL loop:');
   console.log('     → Generates v1 → Tests (7/10 fail) → Refines v2');
   console.log('     → Tests (13/13 pass) ✅ → Production-ready!');
   console.log('');
@@ -185,6 +217,7 @@ try {
   console.error('\n📝 Manual Installation:');
   console.error('  1. git clone https://github.com/yawningphantom/alpha-skill.git');
   console.error('  2. cp -r skills/skill-* ~/.claude/skills/');
+  console.error('  3. cp skills/skill-*/SKILL.md ~/.opencode/commands/  (OpenCode)');
   console.error('\n💬 Need help? https://github.com/yawningphantom/alpha-skill/issues\n');
   process.exit(1);
 }

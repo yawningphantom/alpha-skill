@@ -484,7 +484,7 @@ This becomes a **skill itself** - the `skill-evaluator` skill!
 ```yaml
 ---
 name: skill-evaluator
-description: Evaluates generated skills against quality standards using 5-layer analysis. Use when skill-writer produces output or user requests quality assessment.
+description: Evaluates generated skills against quality standards using 5-layer analysis. Use when skill-generator produces output or user requests quality assessment.
 type: Interactive
 optimization: Precision
 tools:
@@ -499,7 +499,7 @@ tools:
 Systematically assess whether a generated skill meets production quality standards through 5-layer evaluation.
 
 ## When to Use
-- After skill-writer generates a new skill
+- After skill-generator generates a new skill
 - Before publishing skill to repository
 - When refining existing skills
 - For quality benchmarking
@@ -525,7 +525,7 @@ Execute: `validate_yaml(skill_file_path)`
 
 ```bash
 # After generating a skill
-/skill-writer "Create mortgage calculator"
+/alpha-skill"Create mortgage calculator"
 # → Generates skills/mortgage-calculator/SKILL.md
 
 /skill-evaluator skills/mortgage-calculator/SKILL.md
@@ -597,7 +597,7 @@ jobs:
 └───────────────┬─────────────────────┘
                 │
 ┌───────────────▼─────────────────────┐
-│ skill-writer generates skill        │
+│ skill-generator generates skill        │
 └───────────────┬─────────────────────┘
                 │
 ┌───────────────▼─────────────────────┐
@@ -614,7 +614,7 @@ jobs:
 │ Refinement    │  │ Accept &     │
 │ Loop          │  │ Publish      │
 │               │  └──────────────┘
-│ skill-writer  │
+│ skill-generator  │
 │ --improve     │
 │ [issues]      │
 └───────┬───────┘

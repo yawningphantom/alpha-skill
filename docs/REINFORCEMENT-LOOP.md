@@ -12,11 +12,11 @@ The Reinforcement Learning (RL) Loop is a self-improving system where skills are
 
 **Academic Foundation:** Based on Reflexion (Shinn et al.) and TextGrad - treating evaluation as gradients for prompt optimization.
 
-### The 4-Agent Architecture
+### The 4-Agent Architecture (+ Ingestor Pre-Processing)
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│           REINFORCEMENT LEARNING LOOP v0.0.1                 │
+│           REINFORCEMENT LEARNING LOOP v0.0.2                 │
 │           4-Agent Architecture (AlphaGo-Style)               │
 ├──────────────────────────────────────────────────────────────┤
 │                                                              │
@@ -25,8 +25,15 @@ The Reinforcement Learning (RL) Loop is a self-improving system where skills are
 │       │                                                      │
 │       ▼                                                      │
 │  ┌──────────────────┐                                       │
+│  │ 0. Ingestor      │ NEW: Phase 0 Context Ingestion         │
+│  │ (Context Reader) │ Scans refs/, resources/, runbooks      │
+│  │                  │ Produces: Domain Knowledge Brief       │
+│  └────────┬─────────┘                                       │
+│           │                                                  │
+│           ▼                                                  │
+│  ┌──────────────────┐                                       │
 │  │  1. Architect    │ Generate v1                           │
-│  │  (skill-writer)  │──────────┐                            │
+│  │  (skill-generator)  │──────────┐                            │
 │  └──────────────────┘          │                            │
 │                                ▼                            │
 │                         ┌─────────────┐                     │
@@ -101,6 +108,22 @@ The Reinforcement Learning (RL) Loop is a self-improving system where skills are
 └──────────────────────────────────────────────────────────────┘
 ```
 
+## Modes of Operation
+
+### 1. Generation Mode (Greenfield)
+Standard loop for creating new skills from scratch.
+
+### 2. Rewrite Mode (Brownfield)
+Used when updating existing skills or converting legacy runbooks.
+*   **Goal:** Preserve domain knowledge while updating structure.
+*   **Metric:** `preserve_ratio` (percentage of factual assertions retained).
+*   **Process:** 
+    1.  Parse existing skill/doc into knowledge graph (Entities, Procedures, Rules).
+    2.  Architect applies new framework structure AROUND existing logic.
+    3.  Judge explicitly checks for "knowledge shedding" (lost critical steps).
+
+---
+
 ### Key Difference: Empirical vs. Subjective Evaluation
 
 | Aspect | Old (3-Agent) | New (4-Agent) |
@@ -115,7 +138,7 @@ The Reinforcement Learning (RL) Loop is a self-improving system where skills are
 
 ## The Loop Components
 
-### 1. Architect (skill-writer)
+### 1. Architect (skill-generator)
 
 **Role:** Creates and refines skills based on requirements and feedback
 
@@ -283,7 +306,7 @@ refinement_instructions:
 
 **Usage:**
 ```bash
-/skill-writer "Create mortgage calculator" --auto-refine --target 90
+/alpha-skill"Create mortgage calculator" --auto-refine --target 90
 
 # Process:
 # Iteration 1: Generate → Score 75 → Refine
@@ -315,7 +338,7 @@ auto_refine_config:
 
 **Usage:**
 ```bash
-/skill-writer "Create API docs skill" --semi-auto
+/alpha-skill"Create API docs skill" --semi-auto
 
 # Process:
 # Iteration 1: Generate → Score 75
@@ -346,7 +369,7 @@ auto_refine_config:
 **Usage:**
 ```bash
 # Step 1: Generate
-/skill-writer "Create deployment skill"
+/alpha-skill"Create deployment skill"
 # → Generates skills/deployment/SKILL.md
 
 # Step 2: Evaluate
@@ -354,7 +377,7 @@ auto_refine_config:
 # → Score: 75, Issues: [...]
 
 # Step 3: Refine manually
-/skill-writer --improve skills/deployment/SKILL.md \
+/alpha-skill--improve skills/deployment/SKILL.md \
   --issues "Fix Example 2 placeholder; Add anti-lazy constraints"
 
 # Step 4: Re-evaluate
@@ -362,7 +385,7 @@ auto_refine_config:
 # → Score: 88
 
 # Step 5: Refine again
-/skill-writer --improve skills/deployment/SKILL.md \
+/alpha-skill--improve skills/deployment/SKILL.md \
   --issues "Add verification section"
 
 # Step 6: Final evaluation
@@ -374,7 +397,7 @@ auto_refine_config:
 
 ## Feedback Translation
 
-The evaluator produces structured feedback that skill-writer uses for refinement:
+The evaluator produces structured feedback that skill-generator uses for refinement:
 
 ### Evaluation Output Format
 
@@ -408,7 +431,7 @@ evaluation_report:
 
 ### Refinement Instructions Format
 
-skill-writer receives:
+skill-generator receives:
 
 ```yaml
 refinement_instructions:
@@ -788,7 +811,7 @@ def map_failure_to_layer(failure: dict) -> str:
 ### User Input
 
 ```bash
-/skill-writer "Create a skill for SQL query translation" \
+/alpha-skill"Create a skill for SQL query translation" \
   --auto-refine --target 90 --max-iterations 5
 ```
 
@@ -1167,14 +1190,14 @@ reinforcement_loop_config:
 
 ```bash
 # High-stakes: Stricter requirements
-/skill-writer "Create financial calculator" \
+/alpha-skill"Create financial calculator" \
   --auto-refine \
   --target 95 \
   --max-iterations 10 \
   --min-improvement 2.0
 
 # Quick iteration: Looser requirements
-/skill-writer "Create brainstorming skill" \
+/alpha-skill"Create brainstorming skill" \
   --auto-refine \
   --target 80 \
   --max-iterations 3
@@ -1226,7 +1249,7 @@ recommendation: "Loop taking too long, review complexity or increase timeout"
 
 ```yaml
 status: error
-reason: "skill-writer failed to generate valid YAML"
+reason: "skill-generator failed to generate valid YAML"
 error_details: "Parse error on line 3"
 action: Manual intervention required
 recommendation: "Fix generation logic or template"
@@ -1352,28 +1375,28 @@ refinement_history:
 
 ---
 
-## Integration with skill-writer
+## Integration with skill-generator
 
-### New Modes for skill-writer
+### New Modes for skill-generator
 
 ```bash
 # Mode 1: Generate with auto-refine
-/skill-writer "Create X" --auto-refine
+/alpha-skill"Create X" --auto-refine
 
 # Mode 2: Improve existing skill
-/skill-writer --improve skills/X/SKILL.md --issues "[feedback]"
+/alpha-skill--improve skills/X/SKILL.md --issues "[feedback]"
 
 # Mode 3: Single iteration refinement
-/skill-writer --refine-once skills/X/SKILL.md
+/alpha-skill--refine-once skills/X/SKILL.md
 
 # Mode 4: Continue previous loop
-/skill-writer --resume-loop skills/X/SKILL.md
+/alpha-skill--resume-loop skills/X/SKILL.md
 ```
 
-### skill-writer Enhancement
+### skill-generator Enhancement
 
 ```markdown
-## New Section in skill-writer: Refinement Mode
+## New Section in skill-generator: Refinement Mode
 
 ### Step 5 (NEW): Iterative Refinement
 
@@ -1416,26 +1439,26 @@ refinement_history:
 
 ```python
 # ✅ Good: Achievable targets
-/skill-writer "Create blog writer" --target 90
+/alpha-skill"Create blog writer" --target 90
 
 # ❌ Too high: Wastes iterations
-/skill-writer "Create blog writer" --target 98  # Rarely achievable
+/alpha-skill"Create blog writer" --target 98  # Rarely achievable
 
 # ❌ Too low: Accepts mediocrity
-/skill-writer "Create security audit" --target 70  # Too low for critical skill
+/alpha-skill"Create security audit" --target 70  # Too low for critical skill
 ```
 
 ### 2. Use Appropriate Max Iterations
 
 ```python
 # ✅ Standard: 3-5 iterations
-/skill-writer "..." --max-iterations 5
+/alpha-skill"..." --max-iterations 5
 
 # ⚠️  Complex skills: May need more
-/skill-writer "Create multi-step workflow" --max-iterations 8
+/alpha-skill"Create multi-step workflow" --max-iterations 8
 
 # ❌ Too many: Diminishing returns
-/skill-writer "..." --max-iterations 20  # Likely to plateau
+/alpha-skill"..." --max-iterations 20  # Likely to plateau
 ```
 
 ### 3. Monitor Improvement Rate
@@ -1504,7 +1527,7 @@ multi_objective_config:
 **Causes:**
 - Feedback is too vague
 - Issues are contradictory
-- skill-writer can't address specific layer
+- skill-generator can't address specific layer
 
 **Solutions:**
 1. Review evaluation report for clarity
@@ -1568,5 +1591,5 @@ multi_objective_config:
 
 ---
 
-**Next Step:** Implement the RL loop in skill-writer with `--auto-refine` flag!
+**Next Step:** Implement the RL loop in skill-generator with `--auto-refine` flag!
 

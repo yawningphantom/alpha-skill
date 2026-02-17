@@ -276,6 +276,40 @@ Start
 
 ---
 
+#### Type E: Hybrid Skills (Workflow + Interactive)
+**Purpose:** Complex operational tasks merging strict processes with decision-making.
+
+**Characteristics:**
+- Starts with interactive Triage (Decision Tree).
+- Branches into specific sequential Workflows.
+- Human-in-the-loop confirmation.
+
+**Example Use Cases:**
+- On-call incident response (Triage -> Fix).
+- Deployment debugging (Check -> Rollback/Hotfix).
+- Customer support routing.
+
+**Template:**
+```yaml
+---
+name: hybrid-skill
+description: Guides through [complex process] with conditional branching
+---
+
+# Hybrid Skill
+
+## Part 1: Triage (Interactive)
+1. Gather Context
+2. Decision Logic (If A -> Branch 1)
+
+## Part 2: Execution (Workflow)
+### Branch 1: [Scenario]
+1. Step 1...
+2. Step 2...
+```
+
+---
+
 ### Pillar 3: Quality Standards - The Checklist
 
 Use this checklist to validate every skill:

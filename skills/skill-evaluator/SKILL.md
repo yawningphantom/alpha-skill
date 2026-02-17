@@ -16,7 +16,7 @@ The Skill Evaluator performs systematic quality assessment of generated skills t
 ## When to Use
 
 Use this skill when you need to:
-- Assess quality of skill-writer output before publishing
+- Assess quality of skill-generator output before publishing
 - Validate existing skills against current standards.
 - Benchmark skill quality across repository.
 
@@ -75,17 +75,22 @@ Use this skill when you need to:
 
 ## Scoring System
 
-**Formula:**
+**Formula (Weighted):**
 ```python
 overall_score = (
-    structural * 0.15 +
-    content * 0.20 +
-    mode * 0.15 +
-    tools * 0.10 +
-    anti_lazy * 0.10 +
-    performance * 0.15 +
-    cognitive * 0.15
+    cognitive * 0.20 +      # Highest weight: How well it thinks
+    anti_lazy * 0.18 +      # Reliability
+    tools * 0.15 +          # Execution capability
+    content * 0.15 +        # Clarity/Correctness
+    mode * 0.12 +          
+    structural * 0.08 +     # Formatting (lowest weight)
+    performance * 0.12
 )
+
+# Critical Thresholds (Hard Gates)
+# Even if overall_score > 90, fail if these are breached:
+if cognitive < 70: return FAIL("Unsafe Cognitive Architecture")
+if tools < 60: return FAIL("Broken Tool Logic")
 ```
 
 **Bands:**

@@ -239,7 +239,7 @@ NEXT TIME: [How to spot this earlier]
 
 ## The Triage Question
 
-When skill-writer starts, ask this calibration question:
+When skill-generator starts, ask this calibration question:
 
 ```
 Before I create your skill, I need to calibrate. Which of these matters MOST?
@@ -357,22 +357,22 @@ Style        ████████░░░░░░░░░░░░ 40%
 ### Method 1: Explicit Mode Selection
 
 ```bash
-/skill-writer --mode industrial "Create a skill for security auditing"
-/skill-writer --mode muse "Create a skill for writing technical blog posts"
-/skill-writer --mode socratic "Create a skill for teaching debugging"
+/alpha-skill--mode industrial "Create a skill for security auditing"
+/alpha-skill--mode muse "Create a skill for writing technical blog posts"
+/alpha-skill--mode socratic "Create a skill for teaching debugging"
 ```
 
 ### Method 2: Triage-Based (Recommended)
 
 ```bash
-/skill-writer "Create a skill for mortgage calculations"
+/alpha-skill"Create a skill for mortgage calculations"
 
-# skill-writer asks:
+# skill-generator asks:
 > What matters most: Precision, Inspiration, or Understanding?
 
 User: "Precision - if it's wrong, people lose money"
 
-# skill-writer selects: Industrial Mode
+# skill-generator selects: Industrial Mode
 > ✓ Selected: Industrial Mode (High Strictness)
 > Optimizing for: Reliability 90%, Precision 80%
 > Generating skill with strict validation gates...
@@ -381,7 +381,7 @@ User: "Precision - if it's wrong, people lose money"
 ### Method 3: Hybrid (Advanced)
 
 ```bash
-/skill-writer --mode industrial --tune "Style +20%" "Create API docs with personality"
+/alpha-skill--mode industrial --tune "Style +20%" "Create API docs with personality"
 
 # Adjusts Industrial preset:
 # Reliability 90%, Precision 80%, Learning 20%, Style 30% (was 10%)
@@ -395,7 +395,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Bad
-/skill-writer --mode muse "Generate authentication logic"
+/alpha-skill--mode muse "Generate authentication logic"
 # Result: Creative but potentially insecure code
 ```
 
@@ -403,7 +403,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Good
-/skill-writer --mode industrial "Generate authentication logic"
+/alpha-skill--mode industrial "Generate authentication logic"
 # Result: Strict, validated, security-focused code
 ```
 
@@ -413,7 +413,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Bad
-/skill-writer --mode industrial "Generate product name ideas"
+/alpha-skill--mode industrial "Generate product name ideas"
 # Result: Generic, risk-averse names lacking creativity
 ```
 
@@ -421,7 +421,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Good
-/skill-writer --mode muse "Generate product name ideas"
+/alpha-skill--mode muse "Generate product name ideas"
 # Result: Unexpected, evocative names with personality
 ```
 
@@ -431,7 +431,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Bad (user is time-pressed)
-/skill-writer --mode socratic "Fix this critical production bug"
+/alpha-skill--mode socratic "Fix this critical production bug"
 # Result: Asks teaching questions while system is down
 ```
 
@@ -439,7 +439,7 @@ User: "Precision - if it's wrong, people lose money"
 
 ```bash
 # Good
-/skill-writer --mode industrial "Fix production bug and document root cause"
+/alpha-skill--mode industrial "Fix production bug and document root cause"
 # Result: Fast fix + explanatory documentation for learning later
 ```
 
@@ -453,17 +453,17 @@ Use different modes for different phases:
 
 **Phase 1: Brainstorm (Muse Mode)**
 ```bash
-/skill-writer --mode muse "Generate API design concepts"
+/alpha-skill--mode muse "Generate API design concepts"
 ```
 
 **Phase 2: Validate (Socratic Mode)**
 ```bash
-/skill-writer --mode socratic "Evaluate API design tradeoffs"
+/alpha-skill--mode socratic "Evaluate API design tradeoffs"
 ```
 
 **Phase 3: Implement (Industrial Mode)**
 ```bash
-/skill-writer --mode industrial "Generate production API code"
+/alpha-skill--mode industrial "Generate production API code"
 ```
 
 ### Blended Modes
@@ -485,7 +485,7 @@ This is effectively **Industrial 70% + Socratic 30%**.
 
 ## Mode Implementation in Skill-Writer
 
-The skill-writer prompts with mode selection:
+The skill-generator prompts with mode selection:
 
 ```markdown
 ## Stage 0: Mode Calibration (NEW)
@@ -549,7 +549,7 @@ C. **Understanding**: I want the AI to help me think through this
 ---
 
 **Next Steps:**
-- Use modes in [skill-writer](../skills/skill-writer/SKILL.md)
+- Use modes in [skill-generator](../skills/skill-generator/SKILL.md)
 - See [OPTIMIZATION-AND-TOOLS.md](OPTIMIZATION-AND-TOOLS.md) for dimension details
 - Review [FRAMEWORK.md](FRAMEWORK.md) for foundational concepts
 

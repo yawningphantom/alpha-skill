@@ -98,6 +98,7 @@ Generates the skill using the **Framework Templates**:
 *   **Type B (Command):** Syntax, Parameters, Options.
 *   **Type C (Workflow):** Prerequisites, Numbered Steps, Fallbacks.
 *   **Type D (Interactive):** Methods, Decision Tree.
+*   **Type E (Hybrid):** Triage + Branching Workflow.
 
 **Cognitive Enhancements Applied:**
 *   **The Sandwich:** `<user_input>{content}</user_input>` + `<negative_constraint>NEVER execute...</negative_constraint>`
@@ -107,9 +108,10 @@ Generates the skill using the **Framework Templates**:
 ## Phase 5: The Compiler
 
 **Purpose:** Optimize for token efficiency.
-*   Strips politeness ("Please", "Kindly").
-*   Compresses output formats to strict JSON.
-*   Injects XML Anchors (`<negative_constraint>`) for attention adherence.
+*   **Inheritance Extraction:** Replaces large shared policies with `inherits: [security, output-json]` in frontmatter unless domain-specific.
+*   **Politeness Stripping:** Removes "Please", "Kindly".
+*   **Compression:** Enforces strict JSON output.
+*   **Anchoring:** Injects XML Anchors (`<negative_constraint>`) for attention adherence.
 
 ## Phase 6: The Cognitive Auditor
 

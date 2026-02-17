@@ -1,10 +1,10 @@
 /**
  * alpha-skill - Engineering-grade framework for AI automation agents
  *
- * Skills are automatically installed to ~/.claude/skills/ via postinstall script.
- *
- * Usage in Claude Code:
- *    /alpha-skill "Create a skill for code reviews"
+ * Skills are automatically installed via postinstall script to:
+ *   - Claude Code: ~/.claude/skills/
+ *   - Cursor:      ~/.cursor/rules/
+ *   - OpenCode:    ~/.opencode/commands/
  *
  * Documentation: https://github.com/yawningphantom/alpha-skill
  */
@@ -17,11 +17,13 @@ console.log(`
 
 ✅ Installed to:
    Claude Code: ~/.claude/skills/
-   Cursor:      ~/.cursor/rules/alpha-skill.md
+   Cursor:      ~/.cursor/rules/
+   OpenCode:    ~/.opencode/commands/
 
 Usage:
    Claude Code: /alpha-skill "Create a skill for [task]"
    Cursor:      @alpha-skill create a skill for [task]
+   OpenCode:    /alpha-skill "Create a skill for [task]"
 
 The 4-Agent RL loop automatically refines skills until they
 score ≥90 and pass all adversarial tests.

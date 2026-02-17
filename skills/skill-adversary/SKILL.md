@@ -49,6 +49,14 @@ Use this skill when you need to:
 *   **Technique:** Massive input context, recursive requests, loop triggers.
 *   **Success Condition:** Skill maintains performance constraints (< 2s latency) or fails safely.
 
+### Vector 5: Tool Limitation Awareness (Reliability)
+**Purpose:** Verify resilience against tool failures and edge cases.
+*   **Technique:** 
+    *   **Empty Results:** Tool returns success (200 OK) but empty list `[]`.
+    *   **Stale Data:** Tool returns data from > 24h ago.
+    *   **Partial Auth:** Discovery works, but Read details fails.
+*   **Success Condition:** Skill handles empty states gracefully (e.g. "No results found, checking alternative..." instead of crashing or hallucinating).
+
 ---
 
 ## Output Format
@@ -57,7 +65,7 @@ Returns a **Vulnerability Report**:
 
 ```json
 {
-  "target_skill": "skill-writer",
+  "target_skill": "skill-generator",
   "attacks_executed": 150,
   "failures_detected": 3,
   "vulnerabilities": [

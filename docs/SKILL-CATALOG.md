@@ -9,7 +9,7 @@ A comprehensive index of all available skills organized by category and type.
 ## Quick Stats
 
 - **Total Skills:** 3
-- **Meta Skills:** 3 (skill-writer, skill-evaluator, skill-adversary)
+- **Meta Skills:** 3 (skill-generator, skill-evaluator, skill-adversary)
 - **Reference Skills:** 0
 - **Command Skills:** 0
 - **Workflow Skills:** 0
@@ -31,9 +31,9 @@ A comprehensive index of all available skills organized by category and type.
 ```
 
 ### Creating Skills
-Use the `/skill-writer` meta-skill to automatically generate optimized skills:
+Use the `/alpha-skill` meta-skill to automatically generate optimized skills:
 ```bash
-/skill-writer "Create a skill for [your workflow]"
+/alpha-skill "Create a skill for [your workflow]"
 ```
 
 ### Understanding Modes & Optimization
@@ -72,7 +72,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new skills.
 ### 🧠 Meta Skills
 *Skills that create or optimize other skills*
 
-- **skill-writer** - Transforms vague requirements into production-ready skills using 4-stage compiler pipeline with multi-dimensional optimization
+- **skill-generator** - Transforms vague requirements into production-ready skills using 4-stage compiler pipeline with multi-dimensional optimization
 - **skill-evaluator** - Assesses skill quality using 5-layer analysis (Structure, Content, Mode Alignment, Tools, Anti-Lazy) with 0-100 scoring
 - **skill-adversary** - Generates adversarial test cases to expose skill weaknesses, maintains regression test suites, and enables empirical validation in the RL loop
 
@@ -160,7 +160,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new skills.
 
 | Skill | Category | Description | Status |
 |-------|----------|-------------|--------|
-| skill-writer | Meta Skills | Creates production-ready skills using 4-stage compiler pipeline (Interrogation → Architecture → Tools → Generation) | ✅ Active |
+| skill-generator | Meta Skills | Creates production-ready skills using 4-stage compiler pipeline (Interrogation → Architecture → Tools → Generation) | ✅ Active |
 | skill-evaluator | Meta Skills | Assesses skill quality using 5-layer analysis (Structure, Content, Mode, Tools, Anti-Lazy) with 0-100 scoring system | ✅ Active |
 | skill-adversary | Meta Skills | Generates adversarial test cases, maintains regression suites, enables empirical validation through attack simulation (injection, boundary, ambiguity, etc.) | ✅ Active |
 
@@ -287,13 +287,13 @@ Found a bug or error in a skill?
 - [Tools Guide](TOOLS-GUIDE.md) - Tool design patterns
 - [Evaluation Framework](EVALUATION-FRAMEWORK.md) - Quality assessment methodology
 - [Reinforcement Loop](REINFORCEMENT-LOOP.md) - 4-agent automatic quality improvement system
-- [RL Loop Quick Start](RL-LOOP-QUICKSTART.md) - Quick guide for --auto-refine
-- [skill-writer Skill](../skills/skill-writer/SKILL.md) - Meta-skill for creating skills
+- [Skill Distribution Guide](SKILL-DISTRIBUTION-GUIDE.md) - Sharing and distribution methods
+- [skill-generator Skill](../skills/skill-generator/SKILL.md) - Meta-skill for creating skills
 - [skill-evaluator Skill](../skills/skill-evaluator/SKILL.md) - Meta-skill for evaluating skills
 - [skill-adversary Skill](../skills/skill-adversary/SKILL.md) - Meta-skill for adversarial testing
 
 ### Repository
-- [GitHub Repository](https://github.com/yawningphantom/skills)
+- [GitHub Repository](https://github.com/yawningphantom/alpha-skill)
 
 ---
 

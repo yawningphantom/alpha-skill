@@ -884,7 +884,7 @@ curl https://raw.githubusercontent.com/org/repo/main/.claude-plugin/marketplace.
 - [Discover Plugins](https://code.claude.com/docs/en/discover-plugins)
 
 ### Templates
-- [skills/skill-writer](../skills/skill-writer) - Generates skills automatically
+- [skills/skill-generator](../skills/skill-generator) - Generates skills automatically
 - [templates/](../templates/) - Skill templates for each framework type
 
 ### Community

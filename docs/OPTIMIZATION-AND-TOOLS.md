@@ -982,7 +982,7 @@ A skill that is:
 
 **Next Steps:**
 1. Read [FRAMEWORK.md](FRAMEWORK.md) for foundational concepts
-2. Use [skill-writer](../skills/skill-writer/SKILL.md) skill to generate optimized skills
+2. Use [skill-generator](../skills/skill-generator/SKILL.md) skill to generate optimized skills
 3. See templates in [templates/](../templates/) for structure
 
 ---

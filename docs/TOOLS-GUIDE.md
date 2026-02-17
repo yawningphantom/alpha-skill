@@ -98,6 +98,46 @@ def calculate_X(
 
 ---
 
+## Tool Security: Parameter Sanitization
+
+While Prompt Injection protects the LLM, **Tool Parameter Injection** protects your system.
+
+**Attack Vector:**
+User input: "list models; rm -rf /"
+LLM (naively): `run_shell_command("list models; rm -rf /")` -> **DISASTER**
+
+**Defense Strategy:**
+1.  **Input Sandwiching:** Use `<user_input>` tags in prompts.
+2.  **Parameter Validation:** Validate arguments *inside the tool* or *before calling*.
+
+**Rules by Tool Type:**
+*   **SQL Tools:** NEVER concat strings. Use parameterized queries (`SELECT * FROM table WHERE id = ?`).
+*   **Shell/CLI Tools:** 
+    *   Whitelist allowed commands/arguments.
+    *   Sanitize inputs (escape shell characters).
+    *   Refuse strictly formatted IDs (e.g. regex for UUIDs).
+*   **URL/Web Tools:** Validate protocols (`https://` only), block localhost/internal IP ranges (SSRF protection).
+
+---
+
+## Browser Integration (UI Automation)
+
+**When to use:** 
+When no API exists (e.g. legacy dashboards, Airflow logs, proprietary UIs).
+
+**Risks:**
+*   Fragile selectors (UI changes break skill).
+*   Session/Auth complexity (SSO redirects).
+*   Async loading (elements not ready).
+
+**Best Practices:**
+1.  **Wait for Elements:** Always use `waitForSelector` or equivalent, never fixed sleeps.
+2.  **Fallback to URL:** If automation fails, output the direct URL for the user to click: "I couldn't grab the logs, please check here: [Link]"
+3.  **Read-Only:** Avoid state-changing actions in browser (clicking 'Delete' buttons) unless absolutely necessary.
+4.  **Session Reuse:** Don't login every time. Re-use browser context if possible.
+
+---
+
 ### Pattern 2: Library Tools (External Knowledge)
 
 **When:** Data that changes, is private, or post-training
@@ -724,7 +764,7 @@ Every tool must:
 ---
 
 **Next Steps:**
-- Use [skill-writer](../skills/skill-writer/SKILL.md) to generate tools
+- Use [skill-generator](../skills/skill-generator/SKILL.md) to generate tools
 - See [OPTIMIZATION-AND-TOOLS.md](OPTIMIZATION-AND-TOOLS.md) for integration strategy
 - Review templates in [templates/](../templates/) for skill structure
 

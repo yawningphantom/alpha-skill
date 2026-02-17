@@ -9,8 +9,11 @@
 ### ⚡ Quick Start
 
 ```bash
-# Clone → Use (30 seconds)
-git clone https://github.com/your-org/skills.git && cd skills
+# Install via npm (auto-installs to Claude Code, Cursor, and OpenCode)
+npm install alpha-skill
+
+# Or clone and use directly
+git clone https://github.com/yawningphantom/alpha-skill.git && cd alpha-skill
 claude
 /alpha-skill Create a skill for code reviews
 ```
@@ -31,81 +34,67 @@ claude
 
 ## Installation
 
-### 🚀 For Claude Code
+### Automatic (Recommended)
 
 ```bash
-# 1. Clone this repository
-git clone https://github.com/your-org/skills.git
-cd skills
-
-# 2. Start Claude Code
-claude
-
-# 3. Use immediately
-/alpha-skill Create a skill for code reviews
+npm install alpha-skill
 ```
 
-**Want it available in all projects?**
+This automatically installs all skills to:
+- **Claude Code:** `~/.claude/skills/`
+- **Cursor:** `~/.cursor/rules/`
+- **OpenCode:** `~/.opencode/commands/`
+
+### Manual
 
 ```bash
-# One command - installs all skills (alpha, generator, evaluator, adversary)
+git clone https://github.com/yawningphantom/alpha-skill.git
+cd alpha-skill
+
+# Claude Code
 cp -r skills/skill-* ~/.claude/skills/
 
-# Now use in any project
-cd ~/any-project && claude
-/alpha-skill Create a deployment skill
+# Cursor
+mkdir -p ~/.cursor/rules
+cp skills/skill-*/SKILL.md ~/.cursor/rules/
+
+# OpenCode
+mkdir -p ~/.opencode/commands
+cp skills/skill-*/SKILL.md ~/.opencode/commands/
 ```
 
 ---
 
-### 💻 For Cursor Editor
-
-#### Option 1: Use as Project Context (Best for single project)
+### 🚀 Claude Code
 
 ```bash
-# 1. Navigate to your project
-cd your-project
-
-# 2. Copy alpha-skill to your project
-cp -r /path/to/skills/skills/alpha-skill .cursorrules/skills/
-
-# 3. Cursor automatically loads it
-# Ask Cursor: "Use alpha-skill to create a review skill"
+claude
+/alpha-skill Create a skill for code reviews
 ```
 
-#### Option 2: Add to Global Cursor Rules (Best for all projects)
+### 💻 Cursor Editor
 
 ```bash
-# 1. Read the alpha-skill content
-cat skills/alpha-skill/SKILL.md
+# Reference in Cursor:
+@alpha-skill create a skill for API testing
+```
 
-# 2. Copy it to your global Cursor rules
-# Mac/Linux:
-mkdir -p ~/.cursor/rules
-cp skills/alpha-skill/SKILL.md ~/.cursor/rules/alpha-skill.md
+### 🖥️ OpenCode
 
-# Windows:
-mkdir %USERPROFILE%\.cursor\rules
-copy skills\alpha-skill\SKILL.md %USERPROFILE%\.cursor\rules\alpha-skill.md
-
-# 3. In Cursor, reference it:
-# "@alpha-skill create a skill for API testing"
+```bash
+# Use as a custom command:
+/alpha-skill "Create a skill for code reviews"
 ```
 
 ---
 
 ## Quick Start
 
-### Try It Immediately (No Installation)
-
 ```bash
-# Clone and test
-git clone https://github.com/your-org/skills.git && cd skills
-claude
-
 # Generate your first production-ready skill (automatic RL loop)
 /alpha-skill "Create a skill that reviews pull requests for security issues"
 # → Generates v1 → Tests → Refines → Tests → Production-ready ✅
+```
 
 ### Common Usage Patterns
 
@@ -137,7 +126,6 @@ The framework defines four immutable patterns:
 
 ### Distribution & Sharing
 *   **[Skill Distribution Guide](docs/SKILL-DISTRIBUTION-GUIDE.md)** - Complete guide to sharing skills (project/team/enterprise)
-*   **[Distribution Quick Reference](docs/DISTRIBUTION-QUICK-REF.md)** - Fast lookup for distribution commands
 *   [Contribution Guidelines](docs/CONTRIBUTING.md) - How to contribute
 
 ## License
