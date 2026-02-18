@@ -59,11 +59,33 @@ Use this skill when you need to:
 *   **Verification:** "Verify before returning".
 *   **Format:** "Return ONLY JSON".
 
-### Layer 6: Performance (Token Efficiency)
-**Purpose:** Verify skill is optimized for speed, cost, and clarity.
-*   **Token Count:** Target < 1200 base tokens.
-*   **Redundancy:** < 10% duplicate phrases.
-*   **Politeness Stripping:** No "Please" or "Kindly".
+### Layer 6: Performance (Token Efficiency) — Tool-Backed
+
+**Purpose:** Verify skill is optimized for speed, cost, and clarity using measured data.
+
+**Step 1 — Run the analyzer:**
+```bash
+node tools/token-analyzer.js <skill_path>
+```
+Parse the JSON output. The report contains `tokens_estimated`, `redundancy_pct`, `sections`, and `budget_status`.
+
+**Step 2 — Score each sub-check (0-100):**
+
+| Sub-check | Full marks (100) | Partial | Zero (0) |
+|-----------|-----------------|---------|----------|
+| Token count | <= 1200 tokens | 1201-1500: scale linearly (100 → 0) | > 1500 |
+| Redundancy | < 10% duplicate 3-grams | 10-20%: scale linearly (100 → 0) | > 20% |
+| Politeness | No "Please" or "Kindly" | — | Any occurrence found |
+
+```
+layer_6_score = token_sub * 0.50 + redundancy_sub * 0.35 + politeness_sub * 0.15
+```
+
+**Step 3 — Identify bloat targets:**
+From the `sections` field in the tool's JSON report, identify the **2 heaviest sections** by token count. Mention them in the evaluation feedback so the author knows where to compress (e.g. "Heaviest sections: Workflow (420 tokens), Constraints (195 tokens)").
+
+**Step 4 — Include `token_report` in evaluation output:**
+Attach the full JSON report from the analyzer as `token_report` in the evaluation results. The `sections` dict inside allows downstream agents (the optimizer) to derive bloat targets directly — do not add a separate `top_bloated_sections` field.
 
 ### Layer 7: Cognitive Architecture
 **Purpose:** Verify mandated cognitive techniques were applied.
@@ -102,4 +124,5 @@ if tools < 60: return FAIL("Broken Tool Logic")
 ---
 
 ## Changelog
+*   **v0.0.2:** Layer 6 now uses `tools/token-analyzer.js` for measured token counts, 3-gram redundancy, and section-level breakdown. Adds `token_report` to evaluation output.
 *   **v0.0.1:** Initial Alpha Release. Aligned with Framework standards. Added 7-Layer Evaluation.

@@ -105,13 +105,44 @@ Generates the skill using the **Framework Templates**:
 *   **Chain of Density:** 5-step iterative summary refinement.
 *   **Chain of Thought:** `<scratchpad>` for reasoning before answering.
 
-## Phase 5: The Compiler
+## Phase 5: The Compiler (Budget-Aware)
 
-**Purpose:** Optimize for token efficiency.
-*   **Inheritance Extraction:** Replaces large shared policies with `inherits: [security, output-json]` in frontmatter unless domain-specific.
-*   **Politeness Stripping:** Removes "Please", "Kindly".
-*   **Compression:** Enforces strict JSON output.
-*   **Anchoring:** Injects XML Anchors (`<negative_constraint>`) for attention adherence.
+**Purpose:** Optimize for token efficiency. **Target: <= 1200 estimated tokens.**
+
+### 5.1 Apply Compression Strategies
+
+*   **Inheritance Extraction:** Replace large shared policies with `inherits: [security, output-json]` in frontmatter unless domain-specific.
+*   **Politeness Stripping:** Remove "Please", "Kindly", and other filler.
+*   **Verbose Phrase Replacement:** Apply these substitutions throughout the skill:
+
+| Verbose | Terse |
+|---------|-------|
+| In order to | To |
+| It is important to note that | Note: |
+| Make sure to | Ensure |
+| You should always | Always |
+| At this point in time | Now |
+| Due to the fact that | Because |
+| In the event that | If |
+| For the purpose of | For / To |
+| Has the ability to | Can |
+| Prior to | Before |
+
+*   **Section Merging:** If two adjacent sections each have only 1 bullet, merge them into a single section.
+*   **Example Trimming:** Collapse code/example blocks exceeding 5 lines to a 3-line summary with a comment indicating the omitted detail.
+*   **Strict Output:** Enforce strict JSON output where applicable.
+*   **Anchoring:** Inject XML Anchors (`<negative_constraint>`) for attention adherence.
+
+### 5.2 Verify Token Budget
+
+After applying compression, run the token analyzer to measure the result:
+```bash
+node tools/token-analyzer.js <generated_skill_path>
+```
+
+Check `budget_status` in the JSON output:
+*   **PASS** — Proceed to Phase 6.
+*   **FAIL** — Inspect `sections` in the report to find the heaviest section. Apply targeted compression to that section (merge bullets, shorten examples, tighten wording). Re-run the analyzer. Repeat up to 2 times before proceeding.
 
 ## Phase 6: The Cognitive Auditor
 
@@ -122,6 +153,27 @@ Scans the generated output against the *Technique Manifest*.
 
 ---
 
+## Refinement Mode (`--improve`)
+
+When called with `--improve {skill_path} --refinement-instructions {instructions}`, the generator operates in **refinement mode** instead of creating a new skill from scratch.
+
+**Input:**
+*   `skill_path` — Path to the existing SKILL.md to refine.
+*   `instructions` — Structured refinement instructions from the optimizer, containing `preserve` (what to keep), `fix` (targeted changes with location/issue/fix), and `regression_guard` (tests that must remain passing).
+
+**Process:**
+1.  **Load** the existing skill at `skill_path`.
+2.  **Parse** the refinement instructions. For each `fix` entry, locate the specified section in the skill.
+3.  **Apply fixes** — modify only the targeted sections. Do NOT rewrite sections listed in `preserve`.
+4.  **Run Phase 5** (Compiler) on the modified skill to maintain token budget.
+5.  **Run Phase 6** (Auditor) to verify cognitive technique compliance is preserved.
+6.  **Output** the refined SKILL.md, overwriting the previous version.
+
+**Key constraint:** Refinement must be *surgical*. Only change what the instructions specify. Rewriting unrelated sections risks regression failures on previously-passing adversarial tests.
+
+---
+
 ## Changelog
 
+*   **v0.0.2:** Phase 5 is now budget-aware. Adds verbose-to-terse lookup table, section merging, example trimming, and a self-check gate via `tools/token-analyzer.js`.
 *   **v0.0.1:** Initial Alpha Release. Framework Integration (Type Classification) + Cognitive Architecture Enforcement.

@@ -284,6 +284,19 @@ Returns:
        "anti_lazy": 65,
        "performance": 80,
        "cognitive": 75
+     },
+     "token_report": {
+       "tokens_estimated": 1450,
+       "word_count": 1090,
+       "redundancy_pct": 12.3,
+       "duplicate_3grams": ["must be valid", "return ONLY JSON"],
+       "sections": {
+         "Overview": 85,
+         "Workflow": 420,
+         "Constraints": 195
+       },
+       "budget_status": "FAIL",
+       "budget_target": 1200
      }
    }
 ```
@@ -422,7 +435,22 @@ evaluation:
   layer_scores:
     structural: 95
     content: 70
+    mode_alignment: 85
+    tools: 90
     anti_lazy: 65
+    performance: 80
+    cognitive: 75
+  token_report:
+    tokens_estimated: 1450
+    word_count: 1090
+    redundancy_pct: 12.3
+    duplicate_3grams: ["must be valid", "return ONLY JSON"]
+    sections:
+      Overview: 85
+      Workflow: 420
+      Constraints: 195
+    budget_status: "FAIL"
+    budget_target: 1200
 ```
 
 ### Process: Map Failures to Locations
@@ -435,8 +463,34 @@ location_map = {
     "ambiguity": "Clarification/assumption handling",
     "type_error": "Parameter validation",
     "logic_error": "Workflow logic or decision points",
-    "hallucination": "Knowledge boundaries / schema validation"
+    "hallucination": "Knowledge boundaries / schema validation",
+    "token_bloat": "Run: node tools/token-analyzer.js <skill_path>. "
+                   "Read sections from token_report to find the heaviest section. "
+                   "Apply Phase 5 Compiler strategies (verbose phrase replacement, "
+                   "section merging, example trimming) to that section. "
+                   "Re-run analyzer to confirm budget_status is PASS."
 }
+```
+
+**Trigger conditions for `token_bloat`:**
+
+In addition to mapping failed adversarial tests by their `category` field, the optimizer MUST check `token_report` directly:
+
+```python
+# After processing all failed_tests by category, also check token_report:
+if evaluation.token_report.budget_status == "FAIL":
+    emit fix entry with:
+        test_id: "PERF-001"
+        category: "token_bloat"
+        issue: f"Token budget exceeded ({token_report.tokens_estimated} > {token_report.budget_target})"
+        location: heaviest section from token_report.sections
+
+if evaluation.token_report.redundancy_pct > 20:
+    emit fix entry with:
+        test_id: "PERF-002"
+        category: "token_bloat"
+        issue: f"Redundancy too high ({token_report.redundancy_pct}%)"
+        location: "Full skill — deduplicate repeated 3-grams: {token_report.duplicate_3grams}"
 ```
 
 ### Output: Refinement Instructions
@@ -461,6 +515,13 @@ refinement_instructions:
       fix: "Add table existence check: Before generating query, verify table exists in schema. ERROR: TABLE NOT FOUND"
       severity: "high"
       category: "hallucination"
+
+    - test_id: "PERF-001"
+      location: "Workflow section (420 tokens — heaviest)"
+      issue: "Token budget exceeded (1450 > 1200), redundancy 12.3%"
+      fix: "Apply Phase 5 Compiler: replace verbose phrases, merge single-bullet sections, trim examples > 5 lines to 3. Target: Workflow section."
+      severity: "medium"
+      category: "token_bloat"
 
   regression_guard:
     - test_id: "ADV-1-004"
@@ -712,4 +773,5 @@ Format:
 
 ## Changelog
 
+*   **v0.0.2:** Evaluator schema now includes `token_report` from `tools/token-analyzer.js`. Optimizer gains `token_bloat` category for data-driven compression targeting.
 *   **v0.0.1:** Initial Alpha Release. 4-Agent RL Loop with Empirical Testing + Automatic Refinement.
